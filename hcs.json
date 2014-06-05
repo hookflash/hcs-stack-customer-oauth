@@ -60,6 +60,16 @@
                 "enabled": false
             }
         },
+        "support": {
+            "homepage": {
+                "depends": [
+                    "io.pinf.ui"
+                ],
+                "env": {
+                    "PORT": 80
+                }
+            }
+        },
         "example": {
             "oauth.nodejs": {
                 "depends": [
