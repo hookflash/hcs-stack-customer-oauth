@@ -3,6 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "pm": "npm",
+  "dependencies": {
+    "express": "~3.4.2",
+    "marked": "~0.2.9",
+    "fs-extra": "~0.8.0",
+    "hbs": "~2.4.0",
+    "request": "~2.27.0",
+    "oauth2orize": "~1.0.0"
+  },
   "config": {
     "pio.deploy.converter": {
   	  "name": "nodejs-server"

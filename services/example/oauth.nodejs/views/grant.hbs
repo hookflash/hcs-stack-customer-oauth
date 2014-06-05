@@ -1,0 +1,15 @@
+
+<div class="container">
+
+	<form class="form-signin" action="/authorize/decision" method="post">
+        <input name="transaction_id" type="hidden" value="{{oauth.transactionID}}">
+		<h2 class="form-signin-heading">Permission Grant</h2>
+		<br/>
+		<p><b>{{oauth.client.clientHostname}}</b> is requesting access to your account.</p>
+		<p>Do you approve?</p>
+		<br/>
+	    <input class="btn btn-danger" type="submit" value="Deny" name="cancel" id="deny"/>
+	    <input class="btn btn-success pull-right" type="submit" value="Allow" id="allow"/>
+	</form>
+
+</div>
