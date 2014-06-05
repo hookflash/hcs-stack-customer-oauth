@@ -1,0 +1,17 @@
+{
+  "name": "hcs.stack.customer.oauth",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+  	"smi.cli": "0.x"
+  },
+  "config": {
+    "pio": {
+      "descriptorPath": "./hcs.json"
+    },
+    "smi.cli": {
+    	"descriptorPath": "./hcs.json",
+    	"packagesDirectory": "_upstream"
+    }
+  }
+}

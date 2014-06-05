@@ -1,0 +1,12 @@
+/node_modules/
+.pio.cache/
+.pio.sync/
+
+/bin/pio
+/bin/pio-ensure-credentials
+/bin/smi
+
+/_upstream/
+/hcs.json~extends~*
+
+hcs.rt.json

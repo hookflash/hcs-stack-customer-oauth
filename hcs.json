@@ -1,0 +1,82 @@
+{
+    "extends": [
+        "os.inception.profile/source/profile.proto.json"
+    ],
+    "uuid": "734a15c7-a1ab-47e2-b605-f2d2f56395a3",
+    "upstream": {
+        "packages": {
+            "os-inception": [
+                "../os.inception/services/*/*",
+                "../devcomp/_upstream/*/*"
+            ]
+        },
+        "catalogs": {
+            "os-inception": {
+                "uri": "http://assets.opp.me/catalog/os-inception~int",
+                "headers": {
+                    "x-pio.catalog-key": "37a1043d-596a-4bd5-bf60-6d057b30dec2"
+                }
+            }
+        }
+    },
+    "mappings": {
+        "os.inception.profile": {
+            "location": "os-inception/os.inception.profile"
+        }
+    },
+    "config": {
+        "pio": {
+            "domain": "vm.opp.me",
+            "namespace": "hcs-stack-cust-oauth"
+        },
+        "pio.vm": {
+            "adapter": "digitalocean"
+        },
+        "pio.dns": {
+            "adapters": {
+                "aws": {
+                    "accessKeyId": "{{env.AWS_ACCESS_KEY}}",
+                    "secretAccessKey": "{{env.AWS_SECRET_KEY}}",
+                    "region": "us-east-1"
+                }
+            },
+            "records": {
+                "{{config.pio.hostname}}": {
+                    "domain": "{{config.pio.domain}}",
+                    "type": "A",
+                    "data": "{{config['pio.vm'].ip}}"
+                },
+                "*.{{config.pio.hostname}}": {
+                    "domain": "{{config.pio.domain}}",
+                    "type": "CNAME",
+                    "data": "{{config.pio.hostname}}"
+                }
+            }
+        }
+    },
+    "services": {
+        "0-pio": {
+            "pio.proxy": {
+                "enabled": false
+            }
+        },
+        "example": {
+            "oauth.nodejs": {
+                "depends": [
+                    "io.pinf.ui"
+                ],
+                "env": {
+                    "PORT": 81
+                }
+            },
+            "contacts.nodejs": {
+                "depends": [
+                    "io.pinf.ui"
+                ],
+                "env": {
+                    "PORT": 82
+                }
+            }
+        }
+    }
+}

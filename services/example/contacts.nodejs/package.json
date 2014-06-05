@@ -1,0 +1,11 @@
+{
+  "name": "contacts.nodejs",
+  "version": "0.0.0",
+  "private": true,
+  "pm": "npm",
+  "config": {
+    "pio.deploy.converter": {
+  	  "name": "nodejs-server"
+    }
+  }
+}

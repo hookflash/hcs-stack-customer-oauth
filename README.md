@@ -33,7 +33,7 @@ Contacts API
 
 For a sample NodeJS-based contacts API that integrates with the
 sample NodeJS-base oAuth provider and is connected to the
-local MySQL database see: `services/example/contact.nodejs`
+local MySQL database see: `services/example/contacts.nodejs`
 
 
 Test Sandbox
