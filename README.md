@@ -26,15 +26,18 @@ For a sample NodeJS-based oAuth provider hooked up to a local MySQL
 database see: `/services/example/oauth.nodejs`
 
   * oAuth Server URLs:
-    * `/authorize?response_type=code&redirect_uri=<URL>&client_id=<CLIENT_ID>`
-    * `/token` with client credentials in the request body as dictated by OAuth 2.0 spec or using HTTP basic authentication.
-    * `/profile` with a [bearer token](http://tools.ietf.org/html/rfc6750)
+    * `:81/authorize?response_type=code&redirect_uri=<URL>&client_id=<CLIENT_ID>`
+    * `:81/token` with client credentials in the request body as dictated by OAuth 2.0 spec or using HTTP basic authentication.
+    * `:81/profile` with a [bearer token](http://tools.ietf.org/html/rfc6750)
 
 ### Contacts API
 
 For a sample NodeJS-based contacts API that integrates with the
 sample NodeJS-base oAuth provider and is connected to the
 local MySQL database see: `services/example/contacts.nodejs`
+
+  * Cpntacts Server URLs:
+    * `:82/contacts?access_token=<OAUTH_ACCESS_TOKEN>`
 
 
 Test against Sandbox

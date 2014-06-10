@@ -32,18 +32,12 @@
 				<th>Username</th>
 				<th>Password</th>
 			</tr>
+			{{#each testlogins}}
 			<tr>
-				<td>user1</td>
-				<td>password</td>
+				<td>{{username}}</td>
+				<td>{{password}}</td>
 			</tr>
-			<tr>
-				<td>user2</td>
-				<td>password</td>
-			</tr>
-			<tr>
-				<td>user3</td>
-				<td>password</td>
-			</tr>
+			{{/each}}
 		</table>
 
 	</div>

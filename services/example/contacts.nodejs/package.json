@@ -5,7 +5,12 @@
   "pm": "npm",
   "dependencies": {
     "express": "~4.4.1",
-    "mysql": "~2.3.2"
+    "fs-extra": "~0.8.0",
+    "passport": "~0.1.17",
+    "passport-http-bearer": "~1.0.1",
+    "request": "~2.27.0",
+    "mysql": "~2.3.2",
+    "morgan": "~1.1.1"
   },
   "config": {
     "pio.deploy.converter": {
