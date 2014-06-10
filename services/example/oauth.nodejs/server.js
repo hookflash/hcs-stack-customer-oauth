@@ -5,6 +5,10 @@ const EXPRESS = require("express");
 const HBS = require("hbs");
 const FS = require("fs-extra");
 const MARKED = require("marked");
+const PASSPORT = require("passport");
+const PASSPORT_BASIC = require("passport-http");
+const PASSPORT_CLIENT_PASSWORD = require("passport-oauth2-client-password");
+const PASSPORT_BEARER = require("passport-http-bearer");
 const REQUEST = require("request");
 const OAUTH_SERVER = require("oauth2orize");
 const OAUTH_SERVER_TRANSACTION_LOADER = require("oauth2orize/lib/middleware/transactionLoader");
@@ -17,7 +21,11 @@ var CONFIG = {
     "apps": {
         "hcs-idprovider": {
             "secret": "hcs-idprovider-secret",
-            "callbackURL": "http://hcs-stack-int-i69c2e3e-4.vm.opp.me/op-identity-provider-server-php/oauth/callback"
+            "callbackURL": "http://hcs-stack-int-iee41217-0.vm.opp.me/op-identity-provider-server-php/get/social/customerLogin.php"
+        },
+        "test.oauth.client": {
+            "secret": "test.oauth.client-secret",
+            "callbackURL": "http://hcs-stack-int-i69c2e3e-4.vm.opp.me:5000/oauth/callback"
         }
     }
 };
@@ -26,9 +34,49 @@ var CONFIG = {
 
 var oauthUsers = {};
 var authorizationCodes = {};
+var accessTokens = {};
 
 exports.main = function(callback) {
     try {
+
+        var passport = new PASSPORT.Passport();
+
+        passport.serializeUser(function(user, done) {
+            return done(null, user);
+        });
+
+        passport.deserializeUser(function(obj, done) {
+            return done(null, obj);
+        });
+
+        passport.use(new PASSPORT_BASIC.BasicStrategy(function (username, password, done) {
+            if (
+                CONFIG.apps[username] &&
+                CONFIG.apps[username].secret === password
+            ) {
+                return done(null, CONFIG.services.hcsauth.clients[username]);
+            }
+            return done(null, false);
+        }));
+
+        passport.use(new PASSPORT_CLIENT_PASSWORD.Strategy(function (clientId, clientSecret, done) {
+            if (
+                CONFIG.apps[clientId] &&
+                CONFIG.apps[clientId].secret === clientSecret
+            ) {
+                return done(null, CONFIG.apps[clientId]);
+            }
+            return done(null, false);
+        }));
+
+        passport.use(new PASSPORT_BEARER.Strategy(function(accessToken, done) {
+            if (accessTokens[accessToken]) {
+                return done(null, oauthUsers[accessTokens[accessToken]], {
+                    scope: '*'
+                });
+            }
+            return done(null, false);
+        }));
 
         // @see https://github.com/jaredhanson/oauth2orize
         var oauthServer = OAUTH_SERVER.createServer();
@@ -59,7 +107,7 @@ exports.main = function(callback) {
                 authorizationCodes[code] &&
                 oauthUsers[authorizationCodes[code]].redirectURI === redirectURI
             ) {
-                var token = oauthUsers[authorizationCodes[code]].github.accessToken;
+                var token = uid(16);
                 accessTokens[token] = oauthUsers[authorizationCodes[code]].id;
                 return done(null, token);
             }
@@ -77,6 +125,10 @@ exports.main = function(callback) {
             app.use(EXPRESS.cookieSession({
                 key: "sid-auth"
             }));
+
+            app.use(passport.initialize());
+            app.use(passport.session());
+
         });
 
         function isLoggedIn(req) {
@@ -121,28 +173,48 @@ exports.main = function(callback) {
                 var parsedRedirectURL = URL.parse(redirectURI);
                 if (CONFIG.apps[clientId].callbackURL === redirectURI) {
                     return done(null, {
-                        id: lastReq.session.user.id,
-                        clientId: clientId,
-                        redirectURI: redirectURI
+                        id: lastReq.session.user.username,
+                        redirectURI: redirectURI,
+                        clientHostname: parsedRedirectURL.hostname
                     }, redirectURI);
                 }
             }
             return done(new Error("Callback url provided differes from one configured!"));
         }), function(req, res, next) {
-            if (isLoggedIn(req)) {
-                req.oauth2.res = {
-                    allow: true
-                };
-                return oauthServer._respond(req.oauth2, res, function(err) {
-                    if (err) { return next(err); }
-                    return next(new Error('Unsupported response type: ' + req.oauth2.req.type, 'unsupported_response_type'));
-                });
-            }
+
+            // Bypass grant as we are authorizing our own app only.
+            req.oauth2.res = {
+                allow: true
+            };
+            return oauthServer._respond(req.oauth2, res, function(err) {
+                if (err) { return next(err); }
+                return next(new Error('Unsupported response type: ' + req.oauth2.req.type, 'unsupported_response_type'));
+            });
+            /*
             return renderView(req, res, 'grant', {
                 oauth: req.oauth2
             });
+            */
         });
         app.post('/authorize/decision', ensureAuthenticated, oauthServer.decision());
+
+        app.post('/token', passport.authenticate([
+            'basic',
+            'oauth2-client-password'
+        ], {
+            session: false
+        }), oauthServer.token(), function (err, req, res, next) {
+            console.log("TOKEN ERROR", err.stack);
+            return oauthServer.errorHandler()(err, req, res, next);
+        });
+
+        app.get('/profile', passport.authenticate('bearer', {
+            session: false
+        }), function(req, res) {
+            return res.end(JSON.stringify({
+                id: req.user.id
+            }));
+        });
 
         app.get('/logout', function(req, res, next) {
             if (req.user && req.user.id) {
@@ -152,7 +224,11 @@ exports.main = function(callback) {
                         delete authorizationCodes[id];
                     }
                 }
-            }
+                for (var id in accessTokens) {
+                    if (accessTokens[id] === req.user.id) {
+                        delete accessTokens[id];
+                    }
+                }            }
             req.session = {};
             return res.redirect("/");
         });
@@ -168,11 +244,18 @@ exports.main = function(callback) {
 	        	) &&
 	        	req.body.password === "password"
     		) {
-	            req.session = {
-	            	user: req.body,
-	            	authorized: true
-	            };
-	            return res.redirect("/");
+	            req.session.user = req.body;
+                req.session.authorized = true;
+
+                console.log("Authorizing user:", req.session.user);
+
+                var returnTo = null;
+                if (req.session.returnTo) {
+                    returnTo = req.session.returnTo;
+                    delete req.session.returnTo;
+                }
+                console.log("Redirect to:", returnTo);
+                return res.redirect(returnTo || '/');
 	        }
 
             return renderView(req, res, 'login', {

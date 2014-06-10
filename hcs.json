@@ -61,9 +61,14 @@
             }
         },
         "support": {
-            "homepage": {
+            "config": {
                 "depends": [
                     "io.pinf.ui"
+                ]
+            },
+            "homepage": {
+                "depends": [
+                    "config"
                 ],
                 "env": {
                     "PORT": 80
@@ -73,7 +78,7 @@
         "example": {
             "oauth.nodejs": {
                 "depends": [
-                    "io.pinf.ui"
+                    "config"
                 ],
                 "env": {
                     "PORT": 81
@@ -81,7 +86,7 @@
             },
             "contacts.nodejs": {
                 "depends": [
-                    "io.pinf.ui"
+                    "config"
                 ],
                 "env": {
                     "PORT": 82

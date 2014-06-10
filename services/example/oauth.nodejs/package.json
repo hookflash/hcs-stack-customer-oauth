@@ -9,7 +9,12 @@
     "fs-extra": "~0.8.0",
     "hbs": "~2.4.0",
     "request": "~2.27.0",
-    "oauth2orize": "~1.0.0"
+    "oauth2orize": "~1.0.0",
+    "passport": "~0.1.17",
+    "passport-http": "~0.2.2",
+    "passport-oauth2-client-password": "~0.1.1",
+    "passport-http-bearer": "~1.0.1",
+    "mysql": "~2.3.2"
   },
   "config": {
     "pio.deploy.converter": {

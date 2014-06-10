@@ -25,6 +25,7 @@ Setup services
 For a sample NodeJS-based oAuth provider hooked up to a local MySQL
 database see: `/services/example/oauth.nodejs`
 
+  * oAuth Server URL: `/authorize?response_type=code&redirect_uri=<URL>&client_id=<CLIENT_ID>`
 
 ### Contacts API
 
