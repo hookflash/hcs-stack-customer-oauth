@@ -25,7 +25,10 @@ Setup services
 For a sample NodeJS-based oAuth provider hooked up to a local MySQL
 database see: `/services/example/oauth.nodejs`
 
-  * oAuth Server URL: `/authorize?response_type=code&redirect_uri=<URL>&client_id=<CLIENT_ID>`
+  * oAuth Server URLs:
+    * `/authorize?response_type=code&redirect_uri=<URL>&client_id=<CLIENT_ID>`
+    * `/token` with client credentials in the request body as dictated by OAuth 2.0 spec or using HTTP basic authentication.
+    * `/profile` with a [bearer token](http://tools.ietf.org/html/rfc6750)
 
 ### Contacts API
 
