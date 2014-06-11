@@ -10,17 +10,13 @@ To integrate with Hookflash services using the oAuth approach you need:
 Create Account
 --------------
 
-Create account at: http://fly.hookflash.me
-
-Naviagte to [http://fly.hookflash.me/providers](fly.hookflash.me/providers) and request your own **oAuth Identity Provider Sandbox**.
-
-You will be given further setup instructions at [http://fly.hookflash.me/providers](fly.hookflash.me/providers) once your sandbox request is approved.
+Email support@hookflash.com to request a **oAuth Identity Provider Sandbox**.
 
 
 Setup services
 --------------
 
-### oAuth Provider
+### oAuth Server
 
 For a sample NodeJS-based oAuth provider hooked up to a local MySQL
 database see: `/services/example/oauth.nodejs`
