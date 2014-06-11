@@ -39,5 +39,5 @@ local MySQL database see: `services/example/contacts.nodejs`
 Test against Sandbox
 --------------------
 
-Go to the sandbox at [http://fly.hookflash.me/providers](fly.hookflash.me/providers) and follow instructions.
+Go to the **oAuth Identity Provider Sandbox** url that you were given.
 
