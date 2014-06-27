@@ -50,7 +50,7 @@ and some form of paging must be supported.
 2. Request Sandbox
 ------------------
 
-Email support@hookflash.com to request an **oAuth Identity Provider Sandbox**.
+Email support@hookflash.com to request an **Integration Sandbox**.
 
 To complete the integration we need the following information from you:
 
@@ -65,6 +65,6 @@ If you have any questions or problems with the integration you can get support b
   1. Filing generic issues at https://github.com/hookflashco/hcs-stack-customer-oauth/issues
   2. Sending sensitive questions to support@hookflash.com
 
-You will get a URL to your own **oAuth Identity Provider Sandbox** that you can use to test
+You will get a URL to your own **Integration Sandbox** that you can use to test
 your integration.
 

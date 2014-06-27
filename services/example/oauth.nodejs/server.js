@@ -20,13 +20,15 @@ const PORT = process.env.PORT;
 
 var CONFIG = {
     "apps": {
+/*        
         "hcs-idprovider": {
             "secret": "hcs-idprovider-secret",
             "callbackURL": "http://hcs-stack-int-iee41217-0.vm.opp.me/op-identity-provider-server-php/get/social/customerLogin.php"
         },
-        "test.oauth.client": {
-            "secret": "test.oauth.client-secret",
-            "callbackURL": "http://hcs-stack-int-i69c2e3e-4.vm.opp.me:5000/oauth/callback"
+*/
+        "hcs-stack-int~test.oauth.client": {
+            "secret": "hcs-stack-int~test.oauth.client~secret",
+            "callbackURL": "/^http:\\/\\/hcs-stack-int-[^-]+-[^\\.]+\\.vm.opp.me:5000\\/oauth\\/callback$/"
         }
     },
     "mysql": {
@@ -45,14 +47,21 @@ var authorizationCodes = {};
 
 
 function compareCallbackURIs(configured, provided) {
-    var configuredParts = URL.parse(configured);
-    var providedParts = URL.parse(provided);
+    if (/^\/.+\/$/.test(configured)) {
+        var re = new RegExp(configured.replace(/(^\/|\/$)/g, ""));
+        return !!re.exec(provided);
+    } else
+    if (provided) {
+        var configuredParts = URL.parse(configured);
+        var providedParts = URL.parse(provided);
 
-    // Ignore `?....`
-    configuredParts.search = "";
-    providedParts.search = "";
+        // Ignore `?....`
+        configuredParts.search = "";
+        providedParts.search = "";
 
-    return (URL.format(configuredParts) === URL.format(providedParts));
+        return (URL.format(configuredParts) === URL.format(providedParts));
+    }
+    return false;
 }
 
 var mysql = null;
