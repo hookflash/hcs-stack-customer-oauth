@@ -28,7 +28,7 @@ var CONFIG = {
 */
         "hcs-stack-int~test.oauth.client": {
             "secret": "hcs-stack-int~test.oauth.client~secret",
-            "callbackURL": "/^http:\\/\\/hcs-stack-int-[^-]+-[^\\.]+\\.vm.opp.me:5000\\/oauth\\/callback$/"
+            "callbackURL": "/^http:\\/\\/hcs-stack-int-[^-]+-[^\\.]+\\.vm.opp.me:\\d+\\/oauth\\/callback$/"
         }
     },
     "mysql": {

@@ -1,6 +1,26 @@
 var http = require('http');
 http.createServer(function (req, res) {
   res.writeHead(200, {'Content-Type': 'text/html'});
+
+  if (req.url === "/.well-known/openpeer-services-get") {
+      var payload = JSON.stringify({
+          "result": {
+              "$domain": "hcs-stack-cust-oauth-ia10ccf8-1.vm.opp.me",
+              "$appid": "com.hookflash.app-<expiry>-<token>-<hash>",
+              "$id": "abc",
+              "$handler": "bootstrapper",
+              "$method": "services-get",
+              "$timestamp": 1404525896.114,
+              "$epoch": "1404525895",
+              "error": {
+                  "$id": 302,
+                  "#text": "Found",
+                  "location": "http://bootstrap.hcs-stack-v2-i7957106-7.hcs.io/services-get"
+              }
+          }
+      }, null, 4);
+      return res.end(payload);
+  }
   
   res.end([
     '<h1>Hookflash Services Example Stack - Customer oAuth</h1>',
