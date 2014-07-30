@@ -344,8 +344,8 @@ exports.main = function(callback) {
                 }
 
                 return renderView(req, res, 'login', {
-                    username: req.body.username || "",
-                    password: req.body.password || "",
+                    username: req.body.username || "user1",
+                    password: req.body.password || "password",
                     error: "No such account. Please try again."
                 });
             });
