@@ -68,3 +68,39 @@ If you have any questions or problems with the integration you can get support b
 You will get a URL to your own **Integration Sandbox** that you can use to test
 your integration.
 
+
+
+Development
+===========
+
+**Status: Experimental**
+
+You may launch a Digital Ocean instance using our development scripts. This is an
+*optional* convenience provided by Hookflash to improve the integration process. These
+development scripts will change in future and are NOT intended for production use at this time! 
+
+Requirements:
+
+  * NodeJS `0.10+`
+  * OSX or Ubuntu
+
+Install:
+
+    git clone git@github.com:hookflashco/hcs-stack-customer-oauth.git hcs-stack-customer-oauth
+    cd hcs-stack-customer-oauth
+
+    bin/install.sh
+
+Deploy:
+
+    source bin/activate.sh
+    pio deploy
+
+Updating:
+
+    source bin/activate.sh
+    pio clean
+    git pull origin master
+    bin/install.sh
+    pio deploy
+
