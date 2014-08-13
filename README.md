@@ -91,10 +91,14 @@ Install:
 
     bin/install.sh
 
+    source bin/activate.sh
+    # Use v1 API key for Digital Ocean from: https://cloud.digitalocean.com/api_access
+
 Deploy:
 
     source bin/activate.sh
     pio deploy
+    pio info
 
 Updating:
 
