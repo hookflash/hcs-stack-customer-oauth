@@ -34,10 +34,10 @@
         },
         "pio.dns": {
             "adapters": {
-                "aws": {
-                    "accessKeyId": "{{env.AWS_ACCESS_KEY}}",
-                    "secretAccessKey": "{{env.AWS_SECRET_KEY}}",
-                    "region": "us-east-1"
+                "io-pinf-server-dns": {
+                    "host": "io-pinf-server-dns.opp.me",
+                    "profile": "vm.opp.me/hcs-stack-cust-oauth",
+                    "token": "e78c35b1-aa00-406a-aabe-31d8b73380b4"
                 }
             },
             "records": {
