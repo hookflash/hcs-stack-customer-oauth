@@ -35,9 +35,9 @@
         "pio.dns": {
             "adapters": {
                 "io-pinf-server-dns": {
-                    "host": "io-pinf-server-dns.opp.me",
-                    "profile": "vm.opp.me/hcs-stack-cust-oauth",
-                    "token": "2114a13f-a44a-4ff8-a1b1-cacc1a19a5e4"
+                    "host": "io-pinf-server-dns.hcs.io",
+                    "profile": "hcs.io/hcs-stack-cust-oauth",
+                    "token": "2bd914ed-f6a0-40e3-87e7-507af21e04be"
                 }
             },
             "records": {
