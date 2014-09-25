@@ -13,7 +13,7 @@
         },
         "catalogs": {
             "os-inception": {
-                "uri": "http://pio-catalog.os-inception-iae5f554-5.vm.cadorn.github.pinf.me:8013/catalog/io.pinf.pio/e94b3e8bbb29291251e595b874e602a9ade048dd",
+                "uri": "http://pio-catalog.os-inception-iae5f554-5.vm.cadorn.github.pinf.me:8013/catalog/io.pinf.pio/4681cf435917d41d5f6159a08368fe3e82765f65",
                 "headers": {
                     "x-pio.catalog-key": "37a1043d-596a-4bd5-bf60-6d057b30dec2"
                 }
@@ -36,9 +36,9 @@
         "pio.dns": {
             "adapters": {
                 "io-pinf-server-dns": {
-                    "host": "io-pinf-server-dns.opp.me",
-                    "profile": "vm.opp.me/hcs-stack-cust-oauth",
-                    "token": "2114a13f-a44a-4ff8-a1b1-cacc1a19a5e4"
+                    "host": "io-pinf-server-dns.hcs.io",
+                    "profile": "hcs.io/hcs-stack-cust-oauth",
+                    "token": "2bd914ed-f6a0-40e3-87e7-507af21e04be"
                 }
             },
             "records": {
