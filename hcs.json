@@ -6,8 +6,9 @@
     "upstream": {
         "packages": {
             "os-inception": [
+"/genesis/os.inception/services/*/*",
                 "../os.inception/services/*/*",
-                "../devcomp/_upstream/*/*"
+                "../../../os.inception/services/*/*"
             ]
         },
         "catalogs": {
