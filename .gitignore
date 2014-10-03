@@ -1,6 +1,7 @@
 /node_modules/
 .pio.cache/
 .pio.sync/
+.smi.json
 
 /bin/pio
 /bin/pio-ensure-credentials
