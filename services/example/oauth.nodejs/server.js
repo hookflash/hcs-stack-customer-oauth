@@ -20,15 +20,9 @@ const PORT = process.env.PORT;
 
 var CONFIG = {
     "apps": {
-/*        
-        "hcs-idprovider": {
-            "secret": "hcs-idprovider-secret",
-            "callbackURL": "http://hcs-stack-int-iee41217-0.vm.opp.me/op-identity-provider-server-php/get/social/customerLogin.php"
-        },
-*/
         "hcs-stack-int~test.oauth.client": {
             "secret": "hcs-stack-int~test.oauth.client~secret",
-            "callbackURL": "/^http:\\/\\/hcs-stack-int-[^-]+-[^\\.]+\\.(vm\\.opp\\.me|hcs\\.io):\\d+\\/oauth\\/callback$/"
+            "callbackURL": "/^http:\\/\\/(hcs-stack-int-[^-]+-[^\\.]+|identity)\\.((vm\\.)?opp\\.me|hcs\\.io):\\d+\\/oauth\\/callback$/"
         }
     },
     "mysql": {
