@@ -58,6 +58,6 @@ else
 fi
 
 
-if [ -f "$BASE_PATH/../../$(basename $(dirname $BASE_PATH)).activate.sh" ]; then
-	. $BASE_PATH/../../$(basename $(dirname $BASE_PATH)).activate.sh
+if [ -f "$BASE_PATH/../../hcs.stack.integration.oauth.activate.sh" ]; then
+	. $BASE_PATH/../../hcs.stack.integration.oauth.activate.sh
 fi
